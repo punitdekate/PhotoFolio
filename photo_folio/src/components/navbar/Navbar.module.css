@@ -11,12 +11,14 @@
   justify-content: space-between;
 }
 
-.logo_img img {
+.logo_img {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnRAO1pVp0wJHG2Sv6snO35g2hH2jLIIgfmw&s");
+  background-size: cover;
   width: 60px;
-  padding: 2px;
 }
 
 .logo_text {
   font-size: large;
   font-weight: bolder;
+  margin-left: 3px;
 }

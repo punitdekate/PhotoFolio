@@ -1,0 +1,10 @@
+.album {
+  border: 2px solid black;
+  width: 80%;
+  margin: auto;
+}
+
+.album_header {
+  display: flex;
+  justify-content: space-between;
+}

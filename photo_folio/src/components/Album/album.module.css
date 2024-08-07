@@ -1,5 +1,4 @@
 .album {
-  border: 2px solid black;
   width: 80%;
   margin: auto;
 }
@@ -7,4 +6,101 @@
 .album_header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin: 3px;
+}
+
+.btn_blue {
+  padding: 0.5rem;
+  font-size: large;
+  background-color: rgb(92, 92, 251);
+  border-radius: 10px;
+  color: white;
+  min-width: 80px;
+}
+
+.btn_red {
+  padding: 0.5rem;
+  font-size: large;
+  background-color: rgb(249, 54, 32);
+  border-radius: 10px;
+  color: white;
+  min-width: 80px;
+}
+
+.album_content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.album_outer {
+  height: 20vh;
+  width: 14vw;
+  max-height: 21vh;
+  max-width: 16vw;
+  border: 2px solid #011f5b;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: larger;
+  border-radius: 10px 10px 0px 0px;
+  margin: 15px;
+}
+.album_inner {
+  height: 70%;
+  width: 80%;
+  border: 2px solid grey;
+  display: flex;
+  justify-content: center;
+  background-color: aliceblue;
+  align-items: center;
+  background-image: url("https://static.vecteezy.com/system/resources/previews/037/297/403/non_2x/gallery-icon-3d-render-free-png.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+
+  /* background-attachment: fixed; */
+}
+.album_outer:hover {
+  background-color: #6a5acd;
+  color: white;
+}
+
+/* Album form */
+
+.album_form {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  max-height: 120px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.album_form_input {
+  padding: 0.8rem;
+  width: 60vw;
+  border: 2px solid #011f5b;
+  font-size: large;
+}
+
+.album_create {
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #011f5b;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+/* public css */
+.text_center {
+  text-align: center;
+}
+
+.text_bold {
+  font-weight: bold;
 }

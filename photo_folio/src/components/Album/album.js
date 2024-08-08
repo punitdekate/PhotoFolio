@@ -4,12 +4,14 @@ import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
   doc,
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../Config/DbConfig";
+import CreateAlbum from "./CreateAlbum";
 
-export default function Album() {
+export default function Album({ setAlbumId, setAlbumActive }) {
   const [albums, setAlbums] = useState([]);
   const [isFormActive, setIsFormActive] = useState(false);
 
@@ -25,99 +27,71 @@ export default function Album() {
     });
   }, []);
 
+  useEffect(() => {
+    // const fetchDocument = async () => {
+    //   const docRef = doc(db, "albums", "Quatcw1ULNwdxBcBCQlu");
+    //   const docSnap = await getDoc(docRef);
+    //   console.log(docSnap.data());
+    //   const image = {
+    //     title: "Funny",
+    //     imageUrl: "https://dilse.com",
+    //   };
+    //   const imagesCollectionRef = collection(
+    //     db,
+    //     "albums",
+    //     "Quatcw1ULNwdxBcBCQlu",
+    //     "images"
+    //   );
+    // Add the new image to the 'images' subcollection
+    // await addDoc(imagesCollectionRef, image);
+    // };
+    // fetchDocument();
+  });
+
   const handleAlbumForm = () => {
     setIsFormActive(!isFormActive);
   };
 
-  const handleOpenAlbum = () => {
-    console.log("clicked on album");
+  const handleOpenAlbum = (id) => {
+    setAlbumActive(false);
+    setAlbumId(id);
   };
 
   return (
-    <div className={Styles.album}>
-      {isFormActive && <CreateAlbum />}
-      <div className={Styles.album_header}>
-        <div>
-          <h2>Albums</h2>
+    <>
+      <div className={Styles.album}>
+        {isFormActive && <CreateAlbum />}
+        <div className={Styles.album_header}>
+          <div>
+            <h2>Albums</h2>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={handleAlbumForm}
+              className={!isFormActive ? Styles.btn_blue : Styles.btn_red}
+            >
+              {!isFormActive ? "Add Album" : "Cancel"}
+            </button>
+          </div>
         </div>
-        <div>
-          <button
-            type="button"
-            onClick={handleAlbumForm}
-            className={!isFormActive ? Styles.btn_blue : Styles.btn_red}
-          >
-            {!isFormActive ? "Add Album" : "Cancel"}
-          </button>
-        </div>
-      </div>
-      <div className={Styles.album_content}>
-        {/* Map all albums here from the available in albums collection */}
-        {albums.map((ele) => {
-          return (
-            <div className={Styles.album_outer} key={ele.id}>
+        <div className={Styles.album_content}>
+          {/* Map all albums here from the available in albums collection */}
+          {albums.map((ele) => {
+            return (
               <div
-                onClick={handleOpenAlbum}
-                className={Styles.album_inner}
-              ></div>
-              <div className={Styles.text_bold}>{ele.album.albumName}</div>
-            </div>
-          );
-        })}
+                className={Styles.album_outer}
+                key={ele.id}
+                onClick={() => handleOpenAlbum(ele.id)}
+              >
+                <div className={Styles.album_inner}></div>
+                <div className={Styles.text_bold}>{ele.album.albumName}</div>
+              </div>
+            );
+          })}
+        </div>
+        <div className={Styles.album_pagination}></div>
       </div>
-      <div className={Styles.album_pagination}></div>
-    </div>
-  );
-}
-
-function CreateAlbum() {
-  const [album, setAlbum] = useState({ albumName: "" });
-  const albumNameInput = useRef();
-
-  useEffect(() => {
-    albumNameInput.current.focus();
-  }, []);
-
-  const handleClearAlbumName = () => {
-    setAlbum({ albumName: "" });
-  };
-
-  const handleAddAlbum = async (e) => {
-    e.preventDefault();
-    await addDoc(collection(db, "albums"), {
-      album,
-    });
-    setAlbum({ albumName: "" });
-  };
-  return (
-    <div className={Styles.album_create}>
-      <form onSubmit={(e) => handleAddAlbum(e)}>
-        <div className={Styles.text_center}>
-          <h2>Create New Album</h2>{" "}
-        </div>
-        <div className={Styles.album_form}>
-          <div>
-            <input
-              className={Styles.album_form_input}
-              name="albumName"
-              value={album.albumName}
-              onChange={(e) => setAlbum({ albumName: e.target.value })}
-              placeholder="Album Name"
-              ref={albumNameInput}
-              required
-            />
-          </div>
-          <div>
-            <button className={Styles.btn_red} onClick={handleClearAlbumName}>
-              Clear
-            </button>
-          </div>
-          <div>
-            <button className={Styles.btn_blue} type="submit">
-              Create
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
+    </>
   );
 }

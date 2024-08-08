@@ -1,0 +1,73 @@
+.image_gallery {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+}
+
+.image_gallery_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image_gallery_header_left {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input_css {
+  padding: 0.5rem;
+  border: 2px solid #011f5b;
+  font-size: large;
+  border-radius: 10px;
+}
+
+.image_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100px;
+  max-height: 100px;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.image_css {
+  object-fit: cover;
+  width: 200px;
+  height: 170px;
+}
+/* Add Image Form css */
+.add_image_form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 700px;
+  border: 2px solid red;
+  min-height: 30vh;
+}
+.add_image_form_btns {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+}
+
+.add_image_form input {
+  width: 90%;
+  padding: 0.8rem;
+  border: 2px solid #011f5b;
+  font-size: large;
+}
+
+/* public css */
+
+.margin_css {
+  margin: 7px;
+}

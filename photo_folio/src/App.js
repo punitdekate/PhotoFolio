@@ -6,14 +6,23 @@ import { useState } from "react";
 function App() {
   const [albumActive, setAlbumActive] = useState(true);
   const [albumId, setAlbumId] = useState("");
+  const [isBlur, setIsBlur] = useState(false);
   return (
     <>
       <div className="app-container">
         <Navbar />
         {albumActive ? (
-          <Album setAlbumId={setAlbumId} setAlbumActive={setAlbumActive} />
+          <Album
+            setAlbumId={setAlbumId}
+            setAlbumActive={setAlbumActive}
+            isBlur={isBlur}
+          />
         ) : (
-          <ImageGallery albumId={albumId} setAlbumActive={setAlbumActive} />
+          <ImageGallery
+            albumId={albumId}
+            setAlbumActive={setAlbumActive}
+            setIsBlur={setIsBlur}
+          />
         )}
       </div>
     </>

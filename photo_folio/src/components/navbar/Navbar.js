@@ -1,8 +1,8 @@
 import styles from "./Navbar.module.css";
 
-export default function Navbar() {
+export default function Navbar({ isBlur }) {
   return (
-    <div className={styles.nav}>
+    <div className={`${styles.nav}`}>
       <div className={styles.logo}>
         <div className={styles.logo_img}>
           {/* <img

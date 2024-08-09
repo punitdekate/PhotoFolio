@@ -37,8 +37,6 @@
 .album_outer {
   height: 20vh;
   width: 14vw;
-  max-height: 21vh;
-  max-width: 16vw;
   border: 2px solid #011f5b;
   display: flex;
   justify-content: center;

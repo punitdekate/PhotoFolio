@@ -34,6 +34,17 @@
   flex-wrap: wrap;
 }
 
+/* @media only screen and (min-width: 768px) {
+  .album_outer {
+    height: 20vh;
+    width: 14vw;
+  }
+  .album {
+    width: 100%;
+    margin: auto;
+  }
+} */
+
 .album_outer {
   height: 20vh;
   width: 14vw;
@@ -59,8 +70,6 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 10px;
-
-  /* background-attachment: fixed; */
 }
 .album_outer:hover {
   background-color: #6a5acd;

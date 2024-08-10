@@ -1,20 +1,14 @@
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Styles from "./album.module.css";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  getDoc,
-  doc,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../Config/DbConfig";
 import CreateAlbum from "./CreateAlbum";
 
 export default function Album({ setAlbumId, setAlbumActive }) {
-  const [albums, setAlbums] = useState([]);
-  const [isFormActive, setIsFormActive] = useState(false);
+  const [albums, setAlbums] = useState([]); //To add the albums from database
+  const [isFormActive, setIsFormActive] = useState(false); //For conditional rendering of album form
 
+  // To render all the albums
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "albums"), (snapShot) => {
       const albumDocs = snapShot.docs.map((doc) => {
@@ -27,31 +21,12 @@ export default function Album({ setAlbumId, setAlbumActive }) {
     });
   }, []);
 
-  useEffect(() => {
-    // const fetchDocument = async () => {
-    //   const docRef = doc(db, "albums", "Quatcw1ULNwdxBcBCQlu");
-    //   const docSnap = await getDoc(docRef);
-    //   console.log(docSnap.data());
-    //   const image = {
-    //     title: "Funny",
-    //     imageUrl: "https://dilse.com",
-    //   };
-    //   const imagesCollectionRef = collection(
-    //     db,
-    //     "albums",
-    //     "Quatcw1ULNwdxBcBCQlu",
-    //     "images"
-    //   );
-    // Add the new image to the 'images' subcollection
-    // await addDoc(imagesCollectionRef, image);
-    // };
-    // fetchDocument();
-  });
-
+  // To open the add new album form
   const handleAlbumForm = () => {
     setIsFormActive(!isFormActive);
   };
 
+  //To open the images in the album
   const handleOpenAlbum = (id) => {
     setAlbumActive(false);
     setAlbumId(id);

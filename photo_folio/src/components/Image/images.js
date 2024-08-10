@@ -5,8 +5,6 @@ import Carousel from "../Carousel/Carousel";
 import {
   collection,
   addDoc,
-  getDocs,
-  getDoc,
   setDoc,
   doc,
   deleteDoc,
@@ -30,19 +28,16 @@ function EditImage({ updateImageData, albumId, setEditImageActive }) {
     if (imageForm.title === "" || imageForm.imageUrl === "") {
       return;
     }
-
     const imagesCollectionRef = collection(db, "albums", albumId, "images");
-    // Assuming you have an imageId to identify the image to update
-    const imageRef = doc(imagesCollectionRef, updateImageData.id); // Replace imageId with the actual ID
-
-    await setDoc(imageRef, imageForm, { merge: true }); // Merge updates to avoid overwriting existing fields
+    const imageRef = doc(imagesCollectionRef, updateImageData.id);
+    await setDoc(imageRef, imageForm, { merge: true });
     setEditImageActive(false);
   };
   return (
     <div className={Styles.add_image_form}>
       {/*Add Image Form heading */}
       <div>
-        <h1>Add image to Albums</h1>
+        <h1>Update image to Albums</h1>
       </div>
       <div className={Styles.add_image_form_input_fields}>
         <form onSubmit={(e) => handleImageUpdateForm(e)}>
@@ -51,6 +46,7 @@ function EditImage({ updateImageData, albumId, setEditImageActive }) {
             <input
               type="text"
               value={imageForm.title}
+              // className={StylesFromAlbum.album_form_input}
               onChange={(e) => {
                 setImageForm({
                   title: e.target.value,
@@ -59,7 +55,6 @@ function EditImage({ updateImageData, albumId, setEditImageActive }) {
               }}
               placeholder="Title"
               required
-              // className={StylesFromAlbum.album_form_input}
             />
           </div>
           <div>
@@ -67,6 +62,7 @@ function EditImage({ updateImageData, albumId, setEditImageActive }) {
             <input
               type="text"
               value={imageForm.imageUrl}
+              // className={StylesFromAlbum.album_form_input}
               onChange={(e) => {
                 setImageForm({
                   title: imageForm.title,
@@ -74,7 +70,6 @@ function EditImage({ updateImageData, albumId, setEditImageActive }) {
                 });
               }}
               placeholder="Image URL"
-              // className={StylesFromAlbum.album_form_input}
               required
             />
           </div>
@@ -182,7 +177,7 @@ function ImageGallery({ albumId, setAlbumActive, setIsBlur }) {
   const [popUp, setPopUp] = useState(false);
 
   useEffect(() => {
-    if (searchInput == "") {
+    if (searchInput === "") {
       const unsub = onSnapshot(
         collection(db, "albums", albumId, "images"),
         (snapShot) => {
@@ -200,7 +195,7 @@ function ImageGallery({ albumId, setAlbumActive, setIsBlur }) {
       // Clean up the subscription on component unmount
       return () => unsub();
     }
-  }, [searchInput]);
+  }, [searchInput, albumId]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -228,6 +223,7 @@ function ImageGallery({ albumId, setAlbumActive, setIsBlur }) {
   useEffect(() => {
     searchRef.current.focus();
   });
+
   useEffect(() => {
     // Set up the snapshot listener for the images subcollection of the specified album
     const unsub = onSnapshot(
@@ -255,6 +251,7 @@ function ImageGallery({ albumId, setAlbumActive, setIsBlur }) {
   const handleBack = () => {
     setAlbumActive(true);
   };
+
   const handleOpenCarousel = (index) => {
     setCaroIndex(index);
     setCarouselActive(true);
@@ -268,21 +265,11 @@ function ImageGallery({ albumId, setAlbumActive, setIsBlur }) {
   };
 
   const handleDeleteImage = async (id) => {
-    // await deleteDoc(doc(db, "cities", "DC"));
-
-    try {
-      await deleteDoc(doc(db, "albums", albumId, "images", id));
-      setPopUp(true);
-      const timer = setTimeout(() => {
-        setPopUp(false);
-      }, 2000);
-      console.log("Image deleted successfully");
-      // Update the state after successful deletion
-      // const updatedImages = images.filter((image) => image.id !== imageId);
-      // setImages(updatedImages);
-    } catch (error) {
-      console.error("Error deleting image: ", error);
-    }
+    await deleteDoc(doc(db, "albums", albumId, "images", id));
+    setPopUp(true);
+    setTimeout(() => {
+      setPopUp(false);
+    }, 2000);
   };
 
   return (
@@ -372,7 +359,11 @@ function ImageGallery({ albumId, setAlbumActive, setIsBlur }) {
                 className={`${Styles.image_container} ${Styles.margin_css}`}
               >
                 <div onClick={() => handleOpenCarousel(index)}>
-                  <img src={image.imageUrl} className={Styles.image_css} />
+                  <img
+                    src={image.imageUrl}
+                    className={Styles.image_css}
+                    alt=""
+                  />
                 </div>
                 <div className={StylesFromAlbum.text_bold}>{image.title}</div>
                 <div>
